@@ -2,15 +2,7 @@ const express = require('express');
 const router = express.Router();
 const firebase = require('firebase');
 
-const config = {
-	apiKey: 'AIzaSyB0-S3ozoSx1LDHMc1V4gMy-c1HBVXrq1I',
-	authDomain: 'fire-blogz.firebaseapp.com',
-	databaseURL: 'https://fire-blogz.firebaseio.com',
-	projectId: 'fire-blogz',
-	storageBucket: '',
-	messagingSenderId: '604471474703',
-	appId: '1:604471474703:web:9aeac168e8047527'
-};
+const config = require('../keys');
 
 firebase.initializeApp(config);
 
