@@ -10,6 +10,31 @@ router.get("/login", (req, res) => {
   res.render("users/login");
 });
 
+router.get("/register", (req, res) => {
+  res.render("users/register");
+});
+
+router.post("/register", (req, res) => {
+  msg = [];
+
+  if (req.body.password != req.body.password2) {
+    msg.push("Passwords Don't Match");
+  }
+
+  if (msg.length != 0) res.render("users/register", { messages: msg });
+
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(req.body.email, req.body.password)
+    .then(() => {
+      res.redirect("/");
+    })
+    .catch(err => {
+      msg.push(err.message);
+      res.render("users/register", { messages: msg });
+    });
+});
+
 router.get("/logout", (req, res) => {
   firebase
     .auth()
