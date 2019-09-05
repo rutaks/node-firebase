@@ -10,6 +10,18 @@ router.get("/login", (req, res) => {
   res.render("users/login");
 });
 
+router.get("/logout", (req, res) => {
+  firebase
+    .auth()
+    .signOut()
+    .then(() => {
+      res.redirect("/users/login");
+    })
+    .catch(err => {
+      res.redirect("/error");
+    });
+});
+
 router.post("/login", (req, res) => {
   firebase
     .auth()
@@ -20,7 +32,6 @@ router.post("/login", (req, res) => {
     .catch(error => {
       let errCode = error.code;
       let errMsg = error.message;
-      console.log(">" + errCode + ", " + errMsg);
       res.render("users/login", { msg: errMsg });
     });
 });
